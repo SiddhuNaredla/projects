@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        *{
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative; /* Allow absolute positioning of the background */
+            overflow: hidden; /* Prevent scrollbars from appearing */
+        }
+
+        .blue-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%; /* Cover the upper half of the viewport */
+            background: blue; /* Solid blue color */
+            clip-path: ellipse(75% 100% at 50% 0%); /* Create a parabolic shape */
+            z-index: 0; /* Background behind other elements */
+        }
+
+        .logo-container {
+            position: absolute; /* Position the logo container */
+            top: 20px; /* Space from the top */
+            left: 20px; /* Space from the left */
+            z-index: 1; /* Ensure it is above the background */
+            color: white; /* Logo text color */
+            display: flex; /* Use flexbox for horizontal alignment */
+            align-items: center; /* Center items vertically */
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            z-index: 1; /* Ensure container is above the blue background */
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            padding: 40px; /* Increased padding for a larger box */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: -50px; /* Move it up to overlap with the U shape */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: darkblue; /* Change border color on focus */
+        }
+
+        .submit-btn {
+            background-color: blue; /* Button color */
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: darkblue; /* Darker shade on hover */
+        }
+
+        .notification {
+            margin-top: 10px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="blue-background"></div> <!-- Blue background -->
+    
+    <div class="logo-container">
+        <img src="logo.png" alt="Edu Manager Logo" style="max-width: 50px; margin-right: 10px;"> <!-- Logo -->
+        <h2 style="margin: 0;"> EduManager</h2> <!-- Edu Manager text -->
+    </div>
+    
+    <div class="container">
+        <div class="login-box">
+            <h1>Admin Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <div class="notification" id="notification" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const notification = document.getElementById('notification');
+
+            // Simulated MongoDB validation (replace this with actual backend call)
+            if (validateAdmin(username, password)) {
+                // Redirect to index.html if credentials are valid
+                window.location.href = 'index.html';
+            } else {
+                // Show error notification
+                notification.textContent = 'Invalid username or password!';
+                notification.className = 'notification error'; // Add error class for styling
+                notification.style.display = 'block';
+            }
+        });
+
+        // Simulated function for MongoDB admin validation
+        function validateAdmin(username, password) {
+            // Example: Replace this with actual MongoDB check
+            const adminCredentials = {
+                username: 'admin',
+                password: 'password123' // Change to your actual admin password
+            };
+
+            return username === adminCredentials.username && password === adminCredentials.password;
+        }
+    </script>
+</body>
+</html>
